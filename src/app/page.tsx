@@ -1,3 +1,14 @@
+import SearchCurrency from './component/search-currency';
+
 export default function Home() {
-  return <div></div>;
+  return (
+    <>
+      <div className="flex">
+        <h1 className="flex-none grow text-[28px] font-heading font-semibold">
+          Harga Crypto dalam Rupiah Hari Ini
+        </h1>
+        <SearchCurrency className="w-[384px]" />
+      </div>
+    </>
+  );
 }
