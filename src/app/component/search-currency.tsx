@@ -48,6 +48,7 @@ export default function SearchCurrency(props: Partial<Props>) {
             <i className="absolute bg-magnifier w-5 h-5 mr-4 top-0 bottom-0 left-4 m-auto" />
             <a
               className="absolute bg-close w-5 h-5 top-1 bottom-0 right-4 m-auto cursor-pointer"
+              title="Close"
               onClick={close}
             />
           </div>
