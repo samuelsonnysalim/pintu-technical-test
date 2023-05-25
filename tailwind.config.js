@@ -7,10 +7,31 @@ module.exports = {
   ],
   theme: {
     extend: {
+      width: {
+        page: "1280px"
+      },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        logo: "url(/logo.svg)",
+        "flag-id": "url(/flag-id.svg)",
+        "price-chart": "url(/price-chart.svg)",
+        "safe-box": "url(/safe-box.svg)",
+        "price-tag": "url(/price-tag.svg)",
+        "lending": "url(/lending.svg)",
+        "support": "url(/support.svg)",
+        "pintu-logo": "url(/pintu-logo.svg)",
+        idea: "url(/idea.svg)",
+        bubble: "url(/bubble.svg)",
+        telegram: "url(/telegram.svg)",
+        twitter: "url(/twitter.svg)",
+        instagram: "url(/instagram.svg)",
+        youtube: "url(/youtube.svg)",
+        facebook: "url(/facebook.svg)",
+        discord: "url(/discord.svg)",
+        blog: "url(/blog.svg)",
+        news: "url(/news.svg)",
+        "press-kit": "url(/press-kit.svg)",
+        briefcase: "url(/briefcase.svg)",
+        code: "url(/code.svg)",
       },
     },
   },
