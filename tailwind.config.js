@@ -6,6 +6,9 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    fontFamily: {
+      heading: '"Neue Haas Grotesk Display Pro", system-ui, sans-serif'
+    },
     extend: {
       width: {
         page: "1280px"
@@ -32,6 +35,8 @@ module.exports = {
         "press-kit": "url(/press-kit.svg)",
         briefcase: "url(/briefcase.svg)",
         code: "url(/code.svg)",
+        magnifier: "url(/magnifier.svg)",
+        close: "url(/close.svg)",
       },
     },
   },
