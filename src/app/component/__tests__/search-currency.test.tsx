@@ -1,17 +1,95 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SearchCurrency from '../search-currency';
+import SearchCurrency from '@pintu/technical-test/app/component/search-currency';
+import ClientProvider from '@pintu/technical-test/app/client-provider';
+import WalletService from '@pintu/technical-test/service/wallet-service';
+
+jest.mock('@pintu/technical-test/service/wallet-service', () => ({
+  listSupportedCurrencies: jest.fn().mockResolvedValue({
+    code: 'success',
+    message: '',
+    payload: [
+      {
+        currencyGroup: 'IDR',
+        color: '#0A68F4',
+        currencySymbol: 'Rp',
+        name: 'Rupiah Token',
+        logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_IDRT.svg',
+        decimal_point: 0,
+        listingDate: '2020-09-15T09:43:42Z',
+        wallets: [],
+      },
+      {
+        currencyGroup: 'BTC',
+        color: '#F78B1A',
+        currencySymbol: 'BTC',
+        name: 'Bitcoin',
+        logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+        decimal_point: 8,
+        listingDate: '2020-09-15T09:43:45Z',
+        wallets: [
+          {
+            currencyGroup: 'BTC',
+            tokenSymbol: 'BTC',
+            decimal_point: 8,
+            tokenType: 'Bitcoin',
+            blockchain: 'Bitcoin',
+            explorer: 'https://explorer.bitcoin.com/btc/tx/',
+            listingDate: '2020-09-15T09:43:45Z',
+            blockchainName: 'Bitcoin',
+            logo: 'https://s3.ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/blockchain/Bitcoin.svg',
+          },
+        ],
+      },
+      {
+        currencyGroup: 'ETH',
+        color: '#9011FE',
+        currencySymbol: 'ETH',
+        name: 'Ethereum',
+        logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+        decimal_point: 18,
+        listingDate: '2020-09-15T09:43:46Z',
+        wallets: [
+          {
+            currencyGroup: 'ETH',
+            tokenSymbol: 'ETH',
+            decimal_point: 18,
+            tokenType: 'ERC-20',
+            blockchain: 'Ethereum',
+            explorer: 'https://etherscan.io/tx/',
+            listingDate: '2020-09-15T09:43:46Z',
+            blockchainName: 'Ethereum',
+            logo: 'https://s3.ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/blockchain/ERC-20.svg',
+          },
+        ],
+      },
+    ],
+  }),
+}));
+
+const listSupportedCurrencies =
+  WalletService.listSupportedCurrencies as jest.Mocked<
+    typeof WalletService.listSupportedCurrencies
+  >;
 
 describe('SearchCurrency', () => {
   it('should load component', () => {
-    render(<SearchCurrency />);
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
 
     expect(screen.getByText('Cari aset di Pintu...')).toBeInTheDocument();
   });
 
   it('should open search input panel, focus on search input, and supported currencies on click', async () => {
     const user = userEvent.setup({ delay: null });
-    render(<SearchCurrency />);
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
 
     await user.click(screen.getByText('Cari aset di Pintu...'));
     expect(screen.queryByText('Cari aset di Pintu...')).not.toBeInTheDocument();
@@ -23,7 +101,11 @@ describe('SearchCurrency', () => {
 
   it('should close search input panel on clicking close button', async () => {
     const user = userEvent.setup({ delay: null });
-    render(<SearchCurrency />);
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
 
     await user.click(screen.getByText('Cari aset di Pintu...'));
     expect(screen.queryByText('Cari aset di Pintu...')).not.toBeInTheDocument();
@@ -36,5 +118,40 @@ describe('SearchCurrency', () => {
     expect(
       screen.queryByPlaceholderText('Cari aset di Pintu...'),
     ).not.toBeInTheDocument();
+  });
+
+  it('should call supported currencies api', () => {
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    expect(listSupportedCurrencies).toBeCalled();
+  });
+
+  it('should load supported currencies based on api', async () => {
+    const user = userEvent.setup({ delay: null });
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    await user.click(screen.getByText('Cari aset di Pintu...'));
+
+    await waitFor(() => {
+      expect(screen.getByAltText('Rupiah Token Logo')).toBeInTheDocument();
+      expect(screen.getByText('Rupiah Token')).toBeInTheDocument();
+      expect(screen.getByText('Rp')).toBeInTheDocument();
+
+      expect(screen.getByAltText('Bitcoin Logo')).toBeInTheDocument();
+      expect(screen.getByText('Bitcoin')).toBeInTheDocument();
+      expect(screen.getByText('BTC')).toBeInTheDocument();
+
+      expect(screen.getByAltText('Ethereum Logo')).toBeInTheDocument();
+      expect(screen.getByText('Ethereum')).toBeInTheDocument();
+      expect(screen.getByText('ETH')).toBeInTheDocument();
+    });
   });
 });

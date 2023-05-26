@@ -1,6 +1,8 @@
 'use client';
 
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import WalletService from '@pintu/technical-test/service/wallet-service';
 
 interface Props {
   className: string;
@@ -10,6 +12,11 @@ export default function SearchCurrency(props: Partial<Props>) {
   const searchInput = useRef<HTMLInputElement>(null);
   const [isShown, setShown] = useState<boolean>(false);
   const [searchCurrency, setSearchCurrency] = useState<string>();
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['supportedCurrencies'],
+    queryFn: () => WalletService.listSupportedCurrencies(),
+    retry: 0,
+  });
 
   const open = useCallback(() => setShown(true), []);
   const close = useCallback(() => setShown(false), []);
@@ -54,17 +61,25 @@ export default function SearchCurrency(props: Partial<Props>) {
           </div>
           <div className="h-[320px] -mx-4 -mb-4 px-4 pb-4 overflow-y-auto">
             <div className="flex flex-col space-y-4">
-              <a
-                className="flex p-2 leading-[22px] rounded-lg hover:bg-gray-100"
-                href="#"
-              >
-                <img
-                  className="w-4 h-[22px] mr-2"
-                  src="https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_IDRT.svg"
-                />
-                <span className="flex-none grow font-medium">Rupiah Token</span>
-                <span className="w-12 text-gray-500 text-right">WWW</span>
-              </a>
+              {data?.payload.map((item, index) => (
+                <a
+                  key={index}
+                  className="flex p-2 leading-[22px] rounded-lg hover:bg-gray-100"
+                  href="#"
+                >
+                  <img
+                    className="w-4 h-[22px] mr-2"
+                    src={item.logo}
+                    alt={`${item.name} Logo`}
+                  />
+                  <span className="flex-none grow font-medium">
+                    {item.name}
+                  </span>
+                  <span className="w-12 text-gray-500 text-right">
+                    {item.currencySymbol}
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
         </div>
