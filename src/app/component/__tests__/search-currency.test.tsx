@@ -123,7 +123,7 @@ describe('SearchCurrency', () => {
     expect(listSupportedCurrencies).toBeCalled();
   });
 
-  it('should load supported currencies based on api', async () => {
+  it('should render supported currencies based on api', async () => {
     const user = userEvent.setup({ delay: null });
     render(
       <ClientProvider>
@@ -134,15 +134,17 @@ describe('SearchCurrency', () => {
     await user.click(screen.getByText('Cari aset di Pintu...'));
 
     await waitFor(() => {
-      expect(screen.getByAltText('Rupiah Token Logo')).toBeInTheDocument();
-      expect(screen.getByText('Rupiah Token')).toBeInTheDocument();
-      expect(screen.getByText('Rp')).toBeInTheDocument();
-
-      expect(screen.getByAltText('Bitcoin Logo')).toBeInTheDocument();
+      expect(screen.getByAltText('Bitcoin Logo')).toHaveAttribute(
+        'src',
+        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+      );
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Ethereum Logo')).toBeInTheDocument();
+      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
+        'src',
+        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();
     });
