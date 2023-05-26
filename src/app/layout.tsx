@@ -2,6 +2,7 @@ import './globals.css';
 import classNames from 'classnames';
 import { Inter } from 'next/font/google';
 import Menu from './component/menu';
+import ClientProvider from './client-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,7 +31,9 @@ export default function RootLayout({
             <a href="/" className="block w-[75px] h-4 bg-logo float-left" />
             <Menu />
           </header>
-          <main className="pt-4 px-4 pb-10">{children}</main>
+          <main className="pt-4 px-4 pb-10">
+            <ClientProvider>{children}</ClientProvider>
+          </main>
         </div>
       </body>
     </html>
