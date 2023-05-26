@@ -1,8 +1,8 @@
 import './globals.css';
 import classNames from 'classnames';
 import { Inter } from 'next/font/google';
-import Menu from './component/menu';
-import ClientProvider from './client-provider';
+import Menu from '@pintu/technical-test/app/component/menu';
+import ClientProvider from '@pintu/technical-test/app/client-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
