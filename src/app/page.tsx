@@ -1,4 +1,5 @@
-import SearchCurrency from './component/search-currency';
+import PriceTable from '@pintu/technical-test/app/component/price-table';
+import SearchCurrency from '@pintu/technical-test/app/component/search-currency';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         </h1>
         <SearchCurrency className="w-[384px]" />
       </div>
+      <PriceTable />
     </>
   );
 }
