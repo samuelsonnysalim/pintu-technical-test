@@ -17,7 +17,6 @@ export default function SearchCurrency(props: Partial<Props>) {
   const { isLoading, error, data } = useQuery({
     queryKey: ['supportedCurrencies'],
     queryFn: () => WalletService.listSupportedCurrencies(),
-    retry: 0,
   });
   const filteredCurrencies =
     data?.payload.filter(({ name }) =>
