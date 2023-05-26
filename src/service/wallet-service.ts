@@ -23,7 +23,7 @@ interface SupportedCurrency {
   wallets: Wallet[];
 }
 
-interface SupportedCurrenciesResponse {
+export interface SupportedCurrenciesResponse {
   code: string;
   message: string;
   payload: SupportedCurrency[];
