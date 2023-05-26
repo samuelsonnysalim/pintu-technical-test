@@ -4,6 +4,7 @@ import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
 import WalletService from '@pintu/technical-test/service/wallet-service';
+import Loading from '@pintu/technical-test/app/component/loading';
 
 interface Props {
   className: string;
@@ -65,36 +66,44 @@ export default function SearchCurrency(props: Partial<Props>) {
           </div>
           <div className="h-[320px] -mx-4 -mb-4 px-4 pb-4 overflow-y-auto">
             <div className="flex flex-col space-y-4">
-              {filteredCurrencies.length > 0 ? (
-                filteredCurrencies.map((item, index) => (
-                  <a
-                    key={index}
-                    className="flex p-2 leading-[22px] rounded-lg hover:bg-gray-100"
-                    href="#"
-                  >
-                    <img
-                      className="w-4 h-[22px] mr-2"
-                      src={item.logo}
-                      alt={`${item.name} Logo`}
-                    />
-                    <span className="flex-none grow font-medium">
-                      {item.name}
-                    </span>
-                    <span className="w-12 text-gray-500 text-right">
-                      {item.currencySymbol}
-                    </span>
-                  </a>
-                ))
-              ) : (
-                <div className="mt-10 text-center text-sm">
-                  <div className="font-semibold">
-                    &quot;{searchCurrency}&quot; Tidak Ditemukan
-                  </div>
-                  <div className="text-gray-500">
-                    Kata kunci tidak sesuai atau aset belum ada di Pintu
-                  </div>
+              {isLoading && <Loading clasName="mt-10 self-center" />}
+              {(error as Error) && (
+                <div className="mt-8 py-2 bg-red-700 text-center text-sm text-white rounded-lg">
+                  <div className="font-semibold">Telah Terjadi Error</div>
+                  <div>{(error as Error).message}</div>
                 </div>
               )}
+              {data &&
+                (filteredCurrencies.length > 0 ? (
+                  filteredCurrencies.map((item, index) => (
+                    <a
+                      key={index}
+                      className="flex p-2 leading-[22px] rounded-lg hover:bg-gray-100"
+                      href="#"
+                    >
+                      <img
+                        className="w-4 h-[22px] mr-2"
+                        src={item.logo}
+                        alt={`${item.name} Logo`}
+                      />
+                      <span className="flex-none grow font-medium">
+                        {item.name}
+                      </span>
+                      <span className="w-12 text-gray-500 text-right">
+                        {item.currencySymbol}
+                      </span>
+                    </a>
+                  ))
+                ) : (
+                  <div className="mt-10 text-center text-sm">
+                    <div className="font-semibold">
+                      &quot;{searchCurrency}&quot; Tidak Ditemukan
+                    </div>
+                    <div className="text-gray-500">
+                      Kata kunci tidak sesuai atau aset belum ada di Pintu
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
