@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Menu from '../menu';
+import Menu from '@pintu/technical-test/app/component/menu';
 
 describe('Menu', () => {
   it('should render component', () => {
