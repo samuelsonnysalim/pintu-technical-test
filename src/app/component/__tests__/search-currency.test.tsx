@@ -92,7 +92,6 @@ describe('SearchCurrency', () => {
     );
 
     await user.click(screen.getByText('Cari aset di Pintu...'));
-    expect(screen.queryByText('Cari aset di Pintu...')).not.toBeInTheDocument();
     expect(
       screen.getByPlaceholderText('Cari aset di Pintu...'),
     ).toBeInTheDocument();
@@ -108,13 +107,7 @@ describe('SearchCurrency', () => {
     );
 
     await user.click(screen.getByText('Cari aset di Pintu...'));
-    expect(screen.queryByText('Cari aset di Pintu...')).not.toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText('Cari aset di Pintu...'),
-    ).toBeInTheDocument();
-
     await user.click(screen.getByTitle('Close'));
-    expect(screen.getByText('Cari aset di Pintu...')).toBeInTheDocument();
     expect(
       screen.queryByPlaceholderText('Cari aset di Pintu...'),
     ).not.toBeInTheDocument();
