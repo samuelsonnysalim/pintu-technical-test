@@ -37,7 +37,7 @@ export default function SearchCurrency(props: Partial<Props>) {
   }, [isShown, searchInput]);
 
   return (
-    <div className={classNames('relative', props.className)}>
+    <div className={classNames('relative z-0', props.className)}>
       <div
         className="flex bg-gray-100 text-gray-400 text-sm leading-5 py-3 px-4 rounded-lg cursor-pointer"
         onClick={open}

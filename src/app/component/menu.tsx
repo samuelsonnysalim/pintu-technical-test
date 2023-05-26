@@ -173,7 +173,10 @@ export default function Menu() {
   const hidePanel = useCallback(() => setSelectedMenuIndex(undefined), []);
 
   return (
-    <nav className="flex -mt-1 float-right" onMouseLeave={hidePanel}>
+    <nav
+      className="relative z-10 flex -mt-1 float-right"
+      onMouseLeave={hidePanel}
+    >
       {menus.map((menu, index) => (
         <Fragment key={index}>
           {menu.subMenus ? (
