@@ -1,7 +1,9 @@
 import axios, { Method } from 'axios';
 import { Path } from 'path-parser';
 
-axios.defaults.baseURL = `${location.href}api/`;
+if (typeof location !== 'undefined') {
+  axios.defaults.baseURL = `${location.href}api/`;
+}
 
 interface ServiceOptions {
   url: string;
