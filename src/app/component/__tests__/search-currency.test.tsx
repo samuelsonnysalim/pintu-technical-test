@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SearchCurrency from '@pintu/technical-test/app/component/search-currency';
 import ClientProvider from '@pintu/technical-test/app/client-provider';
+import SearchCurrency from '@pintu/technical-test/app/component/search-currency';
 import WalletService from '@pintu/technical-test/service/wallet-service';
 
 jest.mock('@pintu/technical-test/service/wallet-service', () => ({
