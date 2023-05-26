@@ -20,7 +20,7 @@ export default function PriceTable() {
   const { isLoading, error, data } = useQuery({
     queryKey: ['priceChanges'],
     queryFn: () => TradeService.listPriceChanges(),
-    refetchInterval: 10000,
+    refetchInterval: 1000,
   });
 
   return (
