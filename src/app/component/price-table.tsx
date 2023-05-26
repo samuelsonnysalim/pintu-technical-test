@@ -71,7 +71,7 @@ export default function PriceTable() {
                         {
                           'rounded-bl-lg':
                             index ===
-                            supportedCurrenciesData.payload.length - 1,
+                            supportedCurrenciesData.payload.length - 2,
                         },
                       )}
                     >
@@ -107,7 +107,7 @@ export default function PriceTable() {
                         {
                           'rounded-br-lg':
                             index ===
-                            supportedCurrenciesData.payload.length - 1,
+                            supportedCurrenciesData.payload.length - 2,
                         },
                       )}
                     >
