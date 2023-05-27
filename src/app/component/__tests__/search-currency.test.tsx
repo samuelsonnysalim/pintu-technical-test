@@ -1,3 +1,4 @@
+import nock from 'nock';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ClientProvider from '@pintu/technical-test/app/client-provider';
@@ -73,6 +74,22 @@ describe('SearchCurrency', () => {
         },
       ],
     });
+
+    nock('http://localhost')
+      .get(
+        `/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg`,
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
+
+    nock('http://localhost')
+      .get(
+        `/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg`,
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
   });
 
   it('should load component', () => {
@@ -127,7 +144,7 @@ describe('SearchCurrency', () => {
 
   it('should render supported currencies based on api', async () => {
     const user = userEvent.setup({ delay: null });
-    render(
+    const { container } = render(
       <ClientProvider>
         <SearchCurrency />
       </ClientProvider>,
@@ -136,16 +153,16 @@ describe('SearchCurrency', () => {
     await user.click(screen.getByText('Cari aset di Pintu...'));
 
     await waitFor(() => {
-      expect(screen.getByAltText('Bitcoin Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();
@@ -154,7 +171,7 @@ describe('SearchCurrency', () => {
 
   it('should filter supported currencies by name based on search input', async () => {
     const user = userEvent.setup({ delay: null });
-    render(
+    const { container } = render(
       <ClientProvider>
         <SearchCurrency />
       </ClientProvider>,
@@ -167,17 +184,14 @@ describe('SearchCurrency', () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.queryByAltText('Rupiah Token Logo'),
-      ).not.toBeInTheDocument();
+      expect(container.querySelectorAll('.injected-svg')).toHaveLength(1);
+
       expect(screen.queryByText('Rupiah Token')).not.toBeInTheDocument();
       expect(screen.queryByText('Rp')).not.toBeInTheDocument();
 
-      expect(screen.getByAltText('Bitcoin Logo')).toBeInTheDocument();
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
 
-      expect(screen.queryByAltText('Ethereum Logo')).not.toBeInTheDocument();
       expect(screen.queryByText('Ethereum')).not.toBeInTheDocument();
       expect(screen.queryByText('ETH')).not.toBeInTheDocument();
     });
@@ -185,7 +199,7 @@ describe('SearchCurrency', () => {
 
   it('should filter supported currencies by currency symbol based on search input', async () => {
     const user = userEvent.setup({ delay: null });
-    render(
+    const { container } = render(
       <ClientProvider>
         <SearchCurrency />
       </ClientProvider>,
@@ -198,17 +212,14 @@ describe('SearchCurrency', () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.queryByAltText('Rupiah Token Logo'),
-      ).not.toBeInTheDocument();
+      expect(container.querySelectorAll('.injected-svg')).toHaveLength(1);
+
       expect(screen.queryByText('Rupiah Token')).not.toBeInTheDocument();
       expect(screen.queryByText('Rp')).not.toBeInTheDocument();
 
-      expect(screen.getByAltText('Bitcoin Logo')).toBeInTheDocument();
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
 
-      expect(screen.queryByAltText('Ethereum Logo')).not.toBeInTheDocument();
       expect(screen.queryByText('Ethereum')).not.toBeInTheDocument();
       expect(screen.queryByText('ETH')).not.toBeInTheDocument();
     });

@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactSVG } from 'react-svg';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
 import WalletService from '@pintu/technical-test/service/wallet-service';
@@ -88,10 +89,16 @@ export default function SearchCurrency(props: Partial<Props>) {
                         className="flex p-2 leading-[22px] rounded-lg hover:bg-gray-100"
                         href="#"
                       >
-                        <img
+                        <ReactSVG
                           className="w-4 h-[22px] mr-2"
-                          src={item.logo}
-                          alt={`${item.name} Logo`}
+                          beforeInjection={(svg) => {
+                            svg.setAttribute(
+                              'style',
+                              `width: 1rem; height: 22px; color: ${item.color}`,
+                            );
+                          }}
+                          src={`api/svg?url=${item.logo}`}
+                          title={`${item.name} Logo`}
                         />
                         <span className="flex-none grow font-medium">
                           {item.name}
