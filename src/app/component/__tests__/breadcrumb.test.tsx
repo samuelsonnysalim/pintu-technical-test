@@ -5,7 +5,7 @@ describe('Breadcrumb', () => {
   it('should load component', () => {
     render(<Breadcrumb />);
 
-    expect(screen.queryAllByText('>').length).toEqual(0);
+    expect(screen.queryAllByText('>')).toHaveLength(0);
   });
 
   it('should render breadcrumbs based on paths passed to the props', () => {
@@ -28,7 +28,7 @@ describe('Breadcrumb', () => {
       />,
     );
 
-    expect(screen.getAllByText('>').length).toEqual(2);
+    expect(screen.getAllByText('>')).toHaveLength(2);
     expect(screen.getByText('Root')).toHaveAttribute('href', '/');
     expect(screen.getByText('Parent')).toHaveAttribute('href', '/parent');
     expect(screen.getByText('Child')).toHaveAttribute('href', '/parent/child');
