@@ -1,3 +1,4 @@
+import nock from 'nock';
 import { render, screen, waitFor } from '@testing-library/react';
 import ClientProvider from '@pintu/technical-test/app/client-provider';
 import MarketTags from '@pintu/technical-test/app/component/market-tags';
@@ -222,6 +223,22 @@ describe('MarketTags', () => {
         ],
       },
     ]);
+
+    nock('http://localhost')
+      .get(
+        '/api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Latest_b83e6c1ad1.svg',
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
+
+    nock('http://localhost')
+      .get(
+        '/api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/De_Fi_c2cbe56025.svg',
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
   });
 
   it('should call market tags api', () => {
@@ -240,14 +257,23 @@ describe('MarketTags', () => {
   });
 
   it('should render market tags with link', async () => {
-    render(
+    const { container } = render(
       <ClientProvider>
         <MarketTags />
       </ClientProvider>,
     );
 
     await waitFor(() => {
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Latest_b83e6c1ad1.svg',
+      );
       expect(screen.getByText('Terbaru')).toHaveAttribute('href', 'tags/new');
+
+      expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/De_Fi_c2cbe56025.svg',
+      );
       expect(screen.getByText('DeFi')).toHaveAttribute('href', 'tags/defi');
     });
   });

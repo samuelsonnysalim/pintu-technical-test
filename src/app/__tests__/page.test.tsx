@@ -1,3 +1,4 @@
+import nock from 'nock';
 import { render, screen, waitFor } from '@testing-library/react';
 import MarketTagService from '@pintu/technical-test/service/market-tag-service';
 import WalletService from '@pintu/technical-test/service/wallet-service';
@@ -319,6 +320,22 @@ describe('Home', () => {
         },
       ],
     });
+
+    nock('http://localhost')
+      .get(
+        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
+
+    nock('http://localhost')
+      .get(
+        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
   });
 
   it('should load component', () => {
@@ -357,7 +374,7 @@ describe('Home', () => {
   });
 
   it('should render PriceTable', async () => {
-    render(
+    const { container } = render(
       <ClientProvider>
         <Home />
       </ClientProvider>,
@@ -371,9 +388,9 @@ describe('Home', () => {
       expect(screen.getByText('1 BLN')).toBeInTheDocument();
       expect(screen.getByText('1 THN')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Bitcoin Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
@@ -383,9 +400,9 @@ describe('Home', () => {
       expect(screen.getByText('4.22%')).toBeInTheDocument();
       expect(screen.getByText('8.67%')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();

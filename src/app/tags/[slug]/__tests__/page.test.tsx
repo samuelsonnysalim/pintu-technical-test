@@ -1,3 +1,4 @@
+import nock from 'nock';
 import { render, screen, waitFor } from '@testing-library/react';
 import MarketTagService from '@pintu/technical-test/service/market-tag-service';
 import WalletService from '@pintu/technical-test/service/wallet-service';
@@ -202,6 +203,14 @@ describe('Tags', () => {
         },
       ],
     });
+
+    nock('http://localhost')
+      .get(
+        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
   });
 
   it('should render Breadcrumb', async () => {
@@ -237,7 +246,7 @@ describe('Tags', () => {
   });
 
   it('should render PriceTable', async () => {
-    render(
+    const { container } = render(
       <ClientProvider>
         {await Tags({ params: { slug: 'new' } })}
       </ClientProvider>,
@@ -251,9 +260,9 @@ describe('Tags', () => {
       expect(screen.getByText('1 BLN')).toBeInTheDocument();
       expect(screen.getByText('1 THN')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();

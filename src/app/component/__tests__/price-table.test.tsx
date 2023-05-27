@@ -128,7 +128,7 @@ describe('PriceTable', () => {
 
     nock('http://localhost')
       .get(
-        `/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg`,
+        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       )
       .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
         'Content-Type': 'image/svg+xml',
@@ -136,7 +136,7 @@ describe('PriceTable', () => {
 
     nock('http://localhost')
       .get(
-        `/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg`,
+        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       )
       .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
         'Content-Type': 'image/svg+xml',
