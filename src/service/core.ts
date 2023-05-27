@@ -1,9 +1,7 @@
 import axios, { Method } from 'axios';
 import { Path } from 'path-parser';
 
-if (typeof location !== 'undefined') {
-  axios.defaults.baseURL = `${location.origin}/api/`;
-}
+axios.defaults.baseURL = `${process.env.NEXT_PUBLIC_HOSTNAME}api/`;
 
 interface ServiceOptions {
   url: string;
