@@ -7,6 +7,7 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    'storybook-addon-mock',
     {
       name: '@storybook/addon-postcss',
       options: {
@@ -30,5 +31,9 @@ const config: StorybookConfig = {
     };
     return config;
   },
+  env: (config) => ({
+    ...config,
+    NEXT_PUBLIC_HOSTNAME: 'http://localhost/',
+  })
 };
 export default config;
