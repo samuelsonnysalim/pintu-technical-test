@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+
   const res = await fetch(
-    'https://content.pintu.co.id/market-tags?language.name=ID&_sort=order:ASC',
+    `https://content.pintu.co.id/market-tags?${searchParams.toString()}`,
     {
-      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json',
       },
