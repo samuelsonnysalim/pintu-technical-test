@@ -8,10 +8,16 @@ import MarketTagService from '@pintu/technical-test/service/market-tag-service';
 export default function MarketTags() {
   const { data } = useQuery({
     queryKey: ['marketTags'],
-    queryFn: () => MarketTagService.listMarketTags(),
+    queryFn: () =>
+      MarketTagService.listMarketTags({
+        query: {
+          'language.name': 'ID',
+          _sort: 'order:ASC',
+        },
+      }),
   });
   return (
-    <div className="flex mb-6 space-x-2">
+    <div className="flex flex-wrap mb-6 space-x-2">
       {data?.map((item, index) => (
         <Link
           key={index}

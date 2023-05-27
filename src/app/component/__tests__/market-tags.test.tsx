@@ -231,7 +231,12 @@ describe('MarketTags', () => {
       </ClientProvider>,
     );
 
-    expect(listMarketTags).toBeCalled();
+    expect(listMarketTags).toBeCalledWith({
+      query: {
+        'language.name': 'ID',
+        _sort: 'order:ASC',
+      },
+    });
   });
 
   it('should render market tags with link', async () => {
