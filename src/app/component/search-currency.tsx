@@ -20,8 +20,10 @@ export default function SearchCurrency(props: Partial<Props>) {
     queryFn: () => WalletService.listSupportedCurrencies(),
   });
   const filteredCurrencies =
-    data?.payload.filter(({ name }) =>
-      name.toLowerCase().includes(searchCurrency.toLowerCase()),
+    data?.payload.filter(
+      ({ name, currencySymbol }) =>
+        name.toLowerCase().includes(searchCurrency.toLowerCase()) ||
+        currencySymbol.toLowerCase().includes(searchCurrency.toLowerCase()),
     ) || [];
 
   const open = useCallback(() => setShown(true), []);

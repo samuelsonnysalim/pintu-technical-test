@@ -152,7 +152,7 @@ describe('SearchCurrency', () => {
     });
   });
 
-  it('should filter supported currencies based on search input', async () => {
+  it('should filter supported currencies by name based on search input', async () => {
     const user = userEvent.setup({ delay: null });
     render(
       <ClientProvider>
@@ -164,6 +164,37 @@ describe('SearchCurrency', () => {
     await user.type(
       screen.getByPlaceholderText('Cari aset di Pintu...'),
       'bit',
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.queryByAltText('Rupiah Token Logo'),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText('Rupiah Token')).not.toBeInTheDocument();
+      expect(screen.queryByText('Rp')).not.toBeInTheDocument();
+
+      expect(screen.getByAltText('Bitcoin Logo')).toBeInTheDocument();
+      expect(screen.getByText('Bitcoin')).toBeInTheDocument();
+      expect(screen.getByText('BTC')).toBeInTheDocument();
+
+      expect(screen.queryByAltText('Ethereum Logo')).not.toBeInTheDocument();
+      expect(screen.queryByText('Ethereum')).not.toBeInTheDocument();
+      expect(screen.queryByText('ETH')).not.toBeInTheDocument();
+    });
+  });
+
+  it('should filter supported currencies by currency symbol based on search input', async () => {
+    const user = userEvent.setup({ delay: null });
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    await user.click(screen.getByText('Cari aset di Pintu...'));
+    await user.type(
+      screen.getByPlaceholderText('Cari aset di Pintu...'),
+      'btc',
     );
 
     await waitFor(() => {
