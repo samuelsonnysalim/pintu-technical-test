@@ -1,5 +1,6 @@
 'use client';
 
+import { ReactSVG } from 'react-svg';
 import classNames from 'classnames';
 import { useQuery } from '@tanstack/react-query';
 import TradeService from '@pintu/technical-test/service/trade-service';
@@ -83,10 +84,16 @@ export default function PriceTable(props: Partial<Props>) {
                     )}
                   >
                     <div className="flex">
-                      <img
+                      <ReactSVG
                         className="w-8 h-8 mr-6"
-                        src={item.logo}
-                        alt={`${item.name} Logo`}
+                        beforeInjection={(svg) => {
+                          svg.setAttribute(
+                            'style',
+                            `width: 2rem; height: 2rem; color: ${item.color}`,
+                          );
+                        }}
+                        src={`api/svg?url=${item.logo}`}
+                        title={`${item.name} Logo`}
                       />
                       <span className="flex-none grow font-semibold leading-8">
                         {item.name}

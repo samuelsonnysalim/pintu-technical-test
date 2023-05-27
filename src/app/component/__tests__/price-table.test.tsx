@@ -1,3 +1,4 @@
+import nock from 'nock';
 import { render, screen, waitFor } from '@testing-library/react';
 import ClientProvider from '@pintu/technical-test/app/client-provider';
 import PriceTable from '@pintu/technical-test/app/component/price-table';
@@ -124,6 +125,22 @@ describe('PriceTable', () => {
           },
         ],
       });
+
+    nock('http://localhost')
+      .get(
+        `/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg`,
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
+
+    nock('http://localhost')
+      .get(
+        `/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg`,
+      )
+      .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
+        'Content-Type': 'image/svg+xml',
+      });
   });
 
   it('should load component', () => {
@@ -148,7 +165,7 @@ describe('PriceTable', () => {
   });
 
   it('should render price changes table', async () => {
-    render(
+    const { container } = render(
       <ClientProvider>
         <PriceTable />
       </ClientProvider>,
@@ -162,9 +179,9 @@ describe('PriceTable', () => {
       expect(screen.getByText('1 BLN')).toBeInTheDocument();
       expect(screen.getByText('1 THN')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Bitcoin Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
@@ -174,9 +191,9 @@ describe('PriceTable', () => {
       expect(screen.getByText('4.22%')).toBeInTheDocument();
       expect(screen.getByText('8.67%')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();
@@ -189,7 +206,7 @@ describe('PriceTable', () => {
   });
 
   it('should render price changes table with auto refetch', async () => {
-    render(
+    const { container } = render(
       <ClientProvider>
         <PriceTable />
       </ClientProvider>,
@@ -203,9 +220,9 @@ describe('PriceTable', () => {
       expect(screen.getByText('1 BLN')).toBeInTheDocument();
       expect(screen.getByText('1 THN')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Bitcoin Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
@@ -215,9 +232,9 @@ describe('PriceTable', () => {
       expect(screen.getByText('4.22%')).toBeInTheDocument();
       expect(screen.getByText('8.67%')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();
@@ -244,7 +261,7 @@ describe('PriceTable', () => {
   });
 
   it('should render price changes table based on currencies passed to the props', async () => {
-    render(
+    const { container } = render(
       <ClientProvider>
         <PriceTable currencies={['ETH']} />
       </ClientProvider>,
@@ -258,9 +275,9 @@ describe('PriceTable', () => {
       expect(screen.getByText('1 BLN')).toBeInTheDocument();
       expect(screen.getByText('1 THN')).toBeInTheDocument();
 
-      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
-        'src',
-        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();
