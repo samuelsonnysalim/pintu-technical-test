@@ -3,6 +3,7 @@ import type { StorybookConfig } from '@storybook/nextjs';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  staticDirs: ['../public/'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -24,9 +25,9 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  webpackFinal: (config: any) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
+  webpackFinal: (config) => {
+    config.resolve!.alias = {
+      ...config.resolve!.alias,
       '@pintu/technical-test': path.resolve(__dirname, '../src/'),
     };
     return config;
