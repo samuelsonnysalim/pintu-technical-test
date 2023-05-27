@@ -2,7 +2,7 @@ import axios, { Method } from 'axios';
 import { Path } from 'path-parser';
 
 if (typeof location !== 'undefined') {
-  axios.defaults.baseURL = `${location.href}api/`;
+  axios.defaults.baseURL = `${location.origin}/api/`;
 }
 
 interface ServiceOptions {
