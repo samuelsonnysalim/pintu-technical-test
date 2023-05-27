@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactSVG } from 'react-svg';
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import MarketTagService from '@pintu/technical-test/service/market-tag-service';
 
@@ -12,9 +13,9 @@ export default function MarketTags() {
   return (
     <div className="flex mb-6 space-x-2">
       {data?.map((item, index) => (
-        <a
+        <Link
           key={index}
-          href="#"
+          href={`tags/${item.slug}`}
           className="flex items-center p-2 bg-blue-100 text-blue-600 text-xs font-semibold rounded-lg"
         >
           <ReactSVG
@@ -24,7 +25,7 @@ export default function MarketTags() {
             title={`${item.title} Logo`}
           />
           {item.title}
-        </a>
+        </Link>
       ))}
     </div>
   );

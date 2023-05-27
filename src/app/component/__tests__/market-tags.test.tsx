@@ -234,7 +234,7 @@ describe('MarketTags', () => {
     expect(listMarketTags).toBeCalled();
   });
 
-  it('should render market tags', async () => {
+  it('should render market tags with link', async () => {
     render(
       <ClientProvider>
         <MarketTags />
@@ -243,7 +243,9 @@ describe('MarketTags', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Terbaru')).toBeInTheDocument();
+      expect(screen.getByText('Terbaru')).toHaveAttribute('href', 'tags/new');
       expect(screen.getByText('DeFi')).toBeInTheDocument();
+      expect(screen.getByText('DeFi')).toHaveAttribute('href', 'tags/defi');
     });
   });
 });
