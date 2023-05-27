@@ -11,7 +11,11 @@ import Currency from '@pintu/technical-test/app/component/currency';
 import Loading from '@pintu/technical-test/app/component/loading';
 import Message from '@pintu/technical-test/app/component/message';
 
-export default function PriceTable() {
+interface Props {
+  currencies: string[];
+}
+
+export default function PriceTable(props: Partial<Props>) {
   const { data: supportedCurrenciesData } =
     useQuery<SupportedCurrenciesResponse>({
       queryKey: ['supportedCurrencies'],
@@ -22,6 +26,12 @@ export default function PriceTable() {
     queryFn: () => TradeService.listPriceChanges(),
     refetchInterval: 1000,
   });
+
+  const filteredSupportedCurrencies = supportedCurrenciesData?.payload.filter(
+    ({ currencySymbol }) =>
+      currencySymbol !== 'Rp' &&
+      (!props.currencies || props.currencies.includes(currencySymbol)),
+  );
 
   return (
     <div className="flex flex-col">
@@ -56,66 +66,62 @@ export default function PriceTable() {
             </tr>
           </thead>
           <tbody>
-            {supportedCurrenciesData?.payload
-              .filter(({ currencySymbol }) => currencySymbol !== 'Rp')
-              .map((item, index) => {
-                const price = data?.payload.find(
-                  ({ pair }) =>
-                    pair === `${item.currencySymbol.toLowerCase()}/idr`,
-                );
-                return (
-                  <tr key={index}>
-                    <td
-                      className={classNames(
-                        'border-b border-l border-gray-200 p-5',
-                        {
-                          'rounded-bl-lg':
-                            index ===
-                            supportedCurrenciesData.payload.length - 2,
-                        },
-                      )}
-                    >
-                      <div className="flex">
-                        <img
-                          className="w-8 h-8 mr-6"
-                          src={item.logo}
-                          alt={`${item.name} Logo`}
-                        />
-                        <span className="flex-none grow font-semibold leading-8">
-                          {item.name}
-                        </span>
-                        <span className="w-12 text-gray-500 text-right leading-8">
-                          {item.currencySymbol}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="border-b border-gray-200 p-5 font-semibold">
-                      <Currency value={price?.latestPrice} />
-                    </td>
-                    <td className="border-b border-gray-200 p-5 font-semibold">
-                      <Percentage value={price?.day} />
-                    </td>
-                    <td className="border-b border-gray-200 p-5 font-semibold">
-                      <Percentage value={price?.week} />
-                    </td>
-                    <td className="border-b border-gray-200 p-5 font-semibold">
-                      <Percentage value={price?.month} />
-                    </td>
-                    <td
-                      className={classNames(
-                        'border-b border-r border-gray-200 p-5 font-semibold',
-                        {
-                          'rounded-br-lg':
-                            index ===
-                            supportedCurrenciesData.payload.length - 2,
-                        },
-                      )}
-                    >
-                      <Percentage value={price?.year} />
-                    </td>
-                  </tr>
-                );
-              })}
+            {filteredSupportedCurrencies?.map((item, index) => {
+              const price = data?.payload.find(
+                ({ pair }) =>
+                  pair === `${item.currencySymbol.toLowerCase()}/idr`,
+              );
+              return (
+                <tr key={index}>
+                  <td
+                    className={classNames(
+                      'border-b border-l border-gray-200 p-5',
+                      {
+                        'rounded-bl-lg':
+                          index === filteredSupportedCurrencies.length - 1,
+                      },
+                    )}
+                  >
+                    <div className="flex">
+                      <img
+                        className="w-8 h-8 mr-6"
+                        src={item.logo}
+                        alt={`${item.name} Logo`}
+                      />
+                      <span className="flex-none grow font-semibold leading-8">
+                        {item.name}
+                      </span>
+                      <span className="w-12 text-gray-500 text-right leading-8">
+                        {item.currencySymbol}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="border-b border-gray-200 p-5 font-semibold">
+                    <Currency value={price?.latestPrice} />
+                  </td>
+                  <td className="border-b border-gray-200 p-5 font-semibold">
+                    <Percentage value={price?.day} />
+                  </td>
+                  <td className="border-b border-gray-200 p-5 font-semibold">
+                    <Percentage value={price?.week} />
+                  </td>
+                  <td className="border-b border-gray-200 p-5 font-semibold">
+                    <Percentage value={price?.month} />
+                  </td>
+                  <td
+                    className={classNames(
+                      'border-b border-r border-gray-200 p-5 font-semibold',
+                      {
+                        'rounded-br-lg':
+                          index === filteredSupportedCurrencies.length - 1,
+                      },
+                    )}
+                  >
+                    <Percentage value={price?.year} />
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}

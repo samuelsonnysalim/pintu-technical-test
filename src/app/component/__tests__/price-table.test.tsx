@@ -242,4 +242,33 @@ describe('PriceTable', () => {
       expect(screen.getByText('4.11%')).toBeInTheDocument();
     });
   });
+
+  it('should render price changes table based on currencies passed to the props', async () => {
+    render(
+      <ClientProvider>
+        <PriceTable currencies={['ETH']} />
+      </ClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('CRYPTO')).toBeInTheDocument();
+      expect(screen.getByText('HARGA')).toBeInTheDocument();
+      expect(screen.getByText('24 JAM')).toBeInTheDocument();
+      expect(screen.getByText('1 MGG')).toBeInTheDocument();
+      expect(screen.getByText('1 BLN')).toBeInTheDocument();
+      expect(screen.getByText('1 THN')).toBeInTheDocument();
+
+      expect(screen.getByAltText('Ethereum Logo')).toHaveAttribute(
+        'src',
+        'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      );
+      expect(screen.getByText('Ethereum')).toBeInTheDocument();
+      expect(screen.getByText('ETH')).toBeInTheDocument();
+      expect(screen.getByText('Rp 27.124.120')).toBeInTheDocument();
+      expect(screen.getByText('1.55%')).toBeInTheDocument();
+      expect(screen.getByText('0.48%')).toBeInTheDocument();
+      expect(screen.getByText('1.68%')).toBeInTheDocument();
+      expect(screen.getByText('4.85%')).toBeInTheDocument();
+    });
+  });
 });
