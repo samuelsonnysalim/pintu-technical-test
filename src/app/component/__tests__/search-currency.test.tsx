@@ -235,15 +235,15 @@ describe('SearchCurrency', () => {
         'data-src',
         'http://localhost/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
-      expect(screen.getByText('Bitcoin')).toBeInTheDocument();
-      expect(screen.getByText('BTC')).toBeInTheDocument();
+      expect(screen.getAllByText('Bitcoin')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('BTC')[1]).toBeInTheDocument();
 
       expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
         'data-src',
         'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
-      expect(screen.getByText('Ethereum')).toBeInTheDocument();
-      expect(screen.getByText('ETH')).toBeInTheDocument();
+      expect(screen.getAllByText('Ethereum')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('ETH')[1]).toBeInTheDocument();
     });
   });
 
@@ -267,8 +267,8 @@ describe('SearchCurrency', () => {
       expect(screen.queryByText('Rupiah Token')).not.toBeInTheDocument();
       expect(screen.queryByText('Rp')).not.toBeInTheDocument();
 
-      expect(screen.getByText('Bitcoin')).toBeInTheDocument();
-      expect(screen.getByText('BTC')).toBeInTheDocument();
+      expect(screen.getAllByText('Bitcoin')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('BTC')[1]).toBeInTheDocument();
 
       expect(screen.queryByText('Ethereum')).not.toBeInTheDocument();
       expect(screen.queryByText('ETH')).not.toBeInTheDocument();
@@ -295,8 +295,8 @@ describe('SearchCurrency', () => {
       expect(screen.queryByText('Rupiah Token')).not.toBeInTheDocument();
       expect(screen.queryByText('Rp')).not.toBeInTheDocument();
 
-      expect(screen.getByText('Bitcoin')).toBeInTheDocument();
-      expect(screen.getByText('BTC')).toBeInTheDocument();
+      expect(screen.getAllByText('Bitcoin')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('BTC')[1]).toBeInTheDocument();
 
       expect(screen.queryByText('Ethereum')).not.toBeInTheDocument();
       expect(screen.queryByText('ETH')).not.toBeInTheDocument();

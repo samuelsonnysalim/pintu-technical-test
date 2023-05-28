@@ -398,33 +398,33 @@ describe('Home', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('CRYPTO')).toBeInTheDocument();
+      expect(screen.getAllByText('CRYPTO')[1]).toBeInTheDocument();
       expect(screen.getByText('HARGA')).toBeInTheDocument();
-      expect(screen.getByText('24 JAM')).toBeInTheDocument();
-      expect(screen.getByText('1 MGG')).toBeInTheDocument();
-      expect(screen.getByText('1 BLN')).toBeInTheDocument();
-      expect(screen.getByText('1 THN')).toBeInTheDocument();
+      expect(screen.getAllByText('24 JAM')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('1 MGG')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('1 BLN')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('1 THN')[1]).toBeInTheDocument();
 
-      expect(container.querySelectorAll('.injected-svg')[2]).toHaveAttribute(
+      expect(container.querySelectorAll('.injected-svg')[4]).toHaveAttribute(
         'data-src',
         'http://localhost/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
-      expect(screen.getByText('Bitcoin')).toBeInTheDocument();
-      expect(screen.getByText('BTC')).toBeInTheDocument();
-      expect(screen.getByText('Rp 395.954.932')).toBeInTheDocument();
-      expect(screen.getByText('0.83%')).toBeInTheDocument();
+      expect(screen.getAllByText('Bitcoin')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('BTC')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('Rp 395.954.932')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('0.83%')[1]).toBeInTheDocument();
       expect(screen.getByText('1.28%')).toBeInTheDocument();
       expect(screen.getByText('4.22%')).toBeInTheDocument();
       expect(screen.getByText('8.67%')).toBeInTheDocument();
 
-      expect(container.querySelectorAll('.injected-svg')[3]).toHaveAttribute(
+      expect(container.querySelectorAll('.injected-svg')[5]).toHaveAttribute(
         'data-src',
         'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
-      expect(screen.getByText('Ethereum')).toBeInTheDocument();
-      expect(screen.getByText('ETH')).toBeInTheDocument();
-      expect(screen.getByText('Rp 27.124.120')).toBeInTheDocument();
-      expect(screen.getByText('1.55%')).toBeInTheDocument();
+      expect(screen.getAllByText('Ethereum')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('ETH')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('Rp 27.124.120')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('1.55%')[1]).toBeInTheDocument();
       expect(screen.getByText('0.48%')).toBeInTheDocument();
       expect(screen.getByText('1.68%')).toBeInTheDocument();
       expect(screen.getByText('4.85%')).toBeInTheDocument();
