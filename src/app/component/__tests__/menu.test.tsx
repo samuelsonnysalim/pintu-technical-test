@@ -108,6 +108,27 @@ describe('Menu', () => {
     });
   });
 
+  it('should disable scroll on body while opening menu in mobile layout', async () => {
+    const user = userEvent.setup({ delay: null });
+    resizeScreenSize(400);
+    render(<Menu />);
+
+    await user.click(screen.getByTitle('Show Menu'));
+
+    expect(document.body).toHaveClass('overflow-hidden');
+  });
+
+  it('should enable scroll on body while closing menu in mobile layout', async () => {
+    const user = userEvent.setup();
+    resizeScreenSize(400);
+    render(<Menu />);
+
+    await user.click(screen.getByTitle('Show Menu'));
+    await waitFor(() => user.click(screen.getByTitle('Close Menu')));
+
+    expect(document.body).not.toHaveClass('overflow-hidden');
+  });
+
   it('should toggle click submenu in mobile layout', async () => {
     const user = userEvent.setup();
     resizeScreenSize(400);

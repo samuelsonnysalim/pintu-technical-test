@@ -176,11 +176,16 @@ export default function Menu() {
   );
 
   const hidePanel = useCallback(() => setSelectedMenuIndex(undefined), []);
-  const openMobileMenu = useCallback(() => setMobileMenuShown(true), []);
+
+  const openMobileMenu = useCallback(() => {
+    setMobileMenuShown(true);
+    document.body.classList.add('overflow-hidden');
+  }, []);
 
   const closeMobileMenu = useCallback(() => {
     setMobileMenuShown(false);
     setOpenedMobileMenuIndexes([]);
+    document.body.classList.remove('overflow-hidden');
   }, []);
 
   const toggleMobileMenu = useCallback(
@@ -206,7 +211,7 @@ export default function Menu() {
       />
       <Transition
         show={isMobileMenuShown}
-        className="block xl:hidden fixed bg-white top-0 right-0 bottom-0 left-0 m-auto overflow-y-auto"
+        className="block xl:hidden fixed bg-white top-0 right-0 bottom-0 left-0 m-auto overflow-y-auto z-50"
         enter="transition duration-400 ease-out"
         enterFrom="transform -translate-y-full"
         enterTo="transform translate-y-0"
