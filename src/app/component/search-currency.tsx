@@ -29,7 +29,18 @@ export default function SearchCurrency(props: Partial<Props>) {
     ) || [];
 
   const open = useCallback(() => setShown(true), []);
-  const close = useCallback(() => setShown(false), []);
+
+  const close = useCallback(() => {
+    setShown(false);
+    setSearchCurrency('');
+    document.body.classList.remove('overflow-hidden');
+  }, []);
+
+  const openOnMobile = useCallback(() => {
+    open();
+    document.body.classList.add('overflow-hidden');
+  }, []);
+
   const onClickBody = useCallback((e: MouseEvent) => {
     if (!container.current?.contains(e.target as Node)) {
       close();
@@ -56,15 +67,25 @@ export default function SearchCurrency(props: Partial<Props>) {
       ref={container}
       className={classNames('relative z-0', props.className)}
     >
+      {/* MOBILE */}
+      <a
+        className="block xl:hidden w-5 h-5 mt-1 bg-magnifier"
+        title="Show Search Currency"
+        onClick={openOnMobile}
+      />
+
+      {/* DESKTOP */}
       <div
-        className="flex bg-gray-100 text-gray-400 text-sm leading-5 py-3 px-4 rounded-lg cursor-pointer"
+        className="hidden xl:flex bg-gray-100 text-gray-400 text-sm leading-5 py-3 px-4 rounded-lg cursor-pointer"
         onClick={open}
       >
         <i className="bg-magnifier w-5 h-5 mr-4" />
         <span className="flex-none grow">Cari aset di Pintu...</span>
       </div>
+
+      {/* ADJUSTED FOR MOBILE AND DESKTOP */}
       {isShown && (
-        <div className="absolute top-0 right-0 left-0 m-auto p-4 bg-white border border-gray-200 rounded-lg">
+        <div className="fixed xl:absolute top-0 right-0 left-0 bottom-0 xl:bottom-auto m-auto p-4 bg-white border border-gray-200 rounded-lg">
           <div className="relative mb-2">
             <input
               ref={searchInput}
@@ -81,7 +102,7 @@ export default function SearchCurrency(props: Partial<Props>) {
               onClick={close}
             />
           </div>
-          <div className="h-[320px] -mx-4 -mb-4 px-4 pb-4 overflow-y-auto">
+          <div className="h-full xl:h-[320px] -mx-4 -mb-4 px-4 pb-4 overflow-y-auto">
             <div className="flex flex-col space-y-4">
               {isLoading && <Loading clasName="mt-10 self-center" />}
               {(error as Error) && (

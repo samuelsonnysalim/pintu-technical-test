@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import ClientProvider from '@pintu/technical-test/app/client-provider';
 import SearchCurrency from '@pintu/technical-test/app/component/search-currency';
 import WalletService from '@pintu/technical-test/service/wallet-service';
+import { resizeScreenSize } from '@pintu/technical-test/setup/util';
 
 jest.mock('@pintu/technical-test/service/wallet-service');
 
@@ -113,6 +114,36 @@ describe('SearchCurrency', () => {
     expect(screen.getByPlaceholderText('Cari aset di Pintu...')).toHaveFocus();
   });
 
+  it('should open search input panel, focus on search input, and supported currencies on click on mobile layout', async () => {
+    const user = userEvent.setup({ delay: null });
+    resizeScreenSize(400);
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    await user.click(screen.getByTitle('Show Search Currency'));
+    expect(
+      screen.getByPlaceholderText('Cari aset di Pintu...'),
+    ).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Cari aset di Pintu...')).toHaveFocus();
+  });
+
+  it('should disable scroll on body while opening search currency on mobile layout', async () => {
+    const user = userEvent.setup({ delay: null });
+    resizeScreenSize(400);
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    await user.click(screen.getByTitle('Show Search Currency'));
+
+    expect(document.body).toHaveClass('overflow-hidden');
+  });
+
   it('should close search input panel on clicking close button', async () => {
     const user = userEvent.setup({ delay: null });
     render(
@@ -142,6 +173,41 @@ describe('SearchCurrency', () => {
     expect(
       screen.queryByPlaceholderText('Cari aset di Pintu...'),
     ).not.toBeInTheDocument();
+  });
+
+  it('should clear search input value on reopen', async () => {
+    const user = userEvent.setup({ delay: null });
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    await user.click(screen.getByText('Cari aset di Pintu...'));
+    await user.type(
+      screen.getByPlaceholderText('Cari aset di Pintu...'),
+      'bit',
+    );
+    await user.click(screen.getByTitle('Close'));
+    await user.click(screen.getByText('Cari aset di Pintu...'));
+    expect(screen.queryByPlaceholderText('Cari aset di Pintu...')).toHaveValue(
+      '',
+    );
+  });
+
+  it('should enable scroll on body while closing search currency on mobile layout', async () => {
+    const user = userEvent.setup();
+    resizeScreenSize(400);
+    render(
+      <ClientProvider>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    await user.click(screen.getByTitle('Show Search Currency'));
+    await waitFor(() => user.click(screen.getByTitle('Close')));
+
+    expect(document.body).not.toHaveClass('overflow-hidden');
   });
 
   it('should call supported currencies api', () => {
