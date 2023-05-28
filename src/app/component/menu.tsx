@@ -208,11 +208,11 @@ export default function Menu() {
         show={isMobileMenuShown}
         className="block xl:hidden fixed bg-white top-0 right-0 bottom-0 left-0 m-auto overflow-y-auto"
         enter="transition duration-400 ease-out"
-        enterFrom="transform -translate-y-full opacity-0"
-        enterTo="transform translate-y-0 opacity-100"
+        enterFrom="transform -translate-y-full"
+        enterTo="transform translate-y-0"
         leave="transition duration-400 ease-out"
-        leaveFrom="transform translate-y-0 opacity-100"
-        leaveTo="transform -translate-y-full opacity-0"
+        leaveFrom="transform translate-y-0"
+        leaveTo="transform -translate-y-full"
       >
         <div className="flex flex-col">
           <header className="p-8 border-b border-gray-200">
