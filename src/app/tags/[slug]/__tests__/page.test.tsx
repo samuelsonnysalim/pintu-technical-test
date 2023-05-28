@@ -211,6 +211,21 @@ describe('Tags', () => {
       });
   });
 
+  it('should call market tags api', async () => {
+    render(
+      <ClientProvider>
+        {await Tags({ params: { slug: 'new' } })}
+      </ClientProvider>,
+    );
+
+    expect(listMarketTags).toBeCalledWith({
+      query: {
+        'language.name': 'ID',
+        slug_eq: 'new',
+      },
+    });
+  });
+
   it('should render Breadcrumb', async () => {
     render(
       <ClientProvider>
