@@ -37,6 +37,8 @@ module.exports = {
         code: "url(/code.svg)",
         magnifier: "url(/magnifier.svg)",
         close: "url(/close.svg)",
+        menu: "url(/menu.svg)",
+        down: "url(/down.svg)",
       },
     },
   },
