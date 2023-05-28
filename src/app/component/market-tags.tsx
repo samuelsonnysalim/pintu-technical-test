@@ -26,7 +26,6 @@ export default function MarketTags() {
         >
           <ReactSVG
             className="w-6 h-6 text-blue-600 mr-2"
-            fill="#2563eb"
             src={`api/svg?url=${item.icon.url}`}
             title={`${item.title} Logo`}
           />
