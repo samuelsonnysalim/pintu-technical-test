@@ -23,7 +23,7 @@ describe('SearchCurrency', () => {
           color: '#0A68F4',
           currencySymbol: 'Rp',
           name: 'Rupiah Token',
-          logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_IDRT.svg',
+          logo: 'http://localhost/static.pintu.co.id/assets/images/logo/circle_IDRT.svg',
           decimal_point: 0,
           listingDate: '2020-09-15T09:43:42Z',
           wallets: [],
@@ -33,7 +33,7 @@ describe('SearchCurrency', () => {
           color: '#F78B1A',
           currencySymbol: 'BTC',
           name: 'Bitcoin',
-          logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+          logo: 'http://localhost/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
           decimal_point: 8,
           listingDate: '2020-09-15T09:43:45Z',
           wallets: [
@@ -46,7 +46,7 @@ describe('SearchCurrency', () => {
               explorer: 'https://explorer.bitcoin.com/btc/tx/',
               listingDate: '2020-09-15T09:43:45Z',
               blockchainName: 'Bitcoin',
-              logo: 'https://s3.ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/blockchain/Bitcoin.svg',
+              logo: 'http://localhost/static.pintu.co.id/assets/images/logo/blockchain/Bitcoin.svg',
             },
           ],
         },
@@ -55,7 +55,7 @@ describe('SearchCurrency', () => {
           color: '#9011FE',
           currencySymbol: 'ETH',
           name: 'Ethereum',
-          logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+          logo: 'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
           decimal_point: 18,
           listingDate: '2020-09-15T09:43:46Z',
           wallets: [
@@ -68,7 +68,7 @@ describe('SearchCurrency', () => {
               explorer: 'https://etherscan.io/tx/',
               listingDate: '2020-09-15T09:43:46Z',
               blockchainName: 'Ethereum',
-              logo: 'https://s3.ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/blockchain/ERC-20.svg',
+              logo: 'http://localhost/static.pintu.co.id/assets/images/logo/blockchain/ERC-20.svg',
             },
           ],
         },
@@ -76,17 +76,13 @@ describe('SearchCurrency', () => {
     });
 
     nock('http://localhost')
-      .get(
-        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
-      )
+      .get('/static.pintu.co.id/assets/images/logo/circle_BTC.svg')
       .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
         'Content-Type': 'image/svg+xml',
       });
 
     nock('http://localhost')
-      .get(
-        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
-      )
+      .get('/static.pintu.co.id/assets/images/logo/circle_ETH.svg')
       .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
         'Content-Type': 'image/svg+xml',
       });
@@ -155,14 +151,14 @@ describe('SearchCurrency', () => {
     await waitFor(() => {
       expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
         'data-src',
-        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+        'http://localhost/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
       expect(screen.getByText('Bitcoin')).toBeInTheDocument();
       expect(screen.getByText('BTC')).toBeInTheDocument();
 
       expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
         'data-src',
-        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+        'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();

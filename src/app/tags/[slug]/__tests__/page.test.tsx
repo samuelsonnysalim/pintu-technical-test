@@ -54,7 +54,7 @@ describe('Tags', () => {
           ext: '.svg',
           mime: 'image/svg+xml',
           size: 3.04,
-          url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Latest_b83e6c1ad1.svg',
+          url: 'http://localhost/content.pintu.co.id/Latest_b83e6c1ad1.svg',
           provider: 'aws-s3',
           provider_metadata: null,
           created_at: '2022-05-31T06:19:18.173Z',
@@ -74,7 +74,7 @@ describe('Tags', () => {
           ext: '.png',
           mime: 'image/png',
           size: 11.41,
-          url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Market_Latest_f9dab5a33a.png',
+          url: 'http://localhost/content.pintu.co.id/Market_Latest_f9dab5a33a.png',
           provider: 'aws-s3',
           provider_metadata: null,
           created_at: '2022-05-20T04:17:12.249Z',
@@ -86,7 +86,7 @@ describe('Tags', () => {
           formats: {
             small: {
               ext: '.png',
-              url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/small_Market_Latest_f9dab5a33a.png',
+              url: 'http://localhost/content.pintu.co.id/small_Market_Latest_f9dab5a33a.png',
               hash: 'small_Market_Latest_f9dab5a33a',
               mime: 'image/png',
               name: 'small_Market-Latest.png',
@@ -97,7 +97,7 @@ describe('Tags', () => {
             },
             thumbnail: {
               ext: '.png',
-              url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/thumbnail_Market_Latest_f9dab5a33a.png',
+              url: 'http://localhost/content.pintu.co.id/thumbnail_Market_Latest_f9dab5a33a.png',
               hash: 'thumbnail_Market_Latest_f9dab5a33a',
               mime: 'image/png',
               name: 'thumbnail_Market-Latest.png',
@@ -129,7 +129,7 @@ describe('Tags', () => {
           color: '#0A68F4',
           currencySymbol: 'Rp',
           name: 'Rupiah Token',
-          logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_IDRT.svg',
+          logo: 'http://localhost/static.pintu.co.id/assets/images/logo/circle_IDRT.svg',
           decimal_point: 0,
           listingDate: '2020-09-15T09:43:42Z',
           wallets: [],
@@ -139,7 +139,7 @@ describe('Tags', () => {
           color: '#F78B1A',
           currencySymbol: 'BTC',
           name: 'Bitcoin',
-          logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+          logo: 'http://localhost/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
           decimal_point: 8,
           listingDate: '2020-09-15T09:43:45Z',
           wallets: [
@@ -152,7 +152,7 @@ describe('Tags', () => {
               explorer: 'https://explorer.bitcoin.com/btc/tx/',
               listingDate: '2020-09-15T09:43:45Z',
               blockchainName: 'Bitcoin',
-              logo: 'https://s3.ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/blockchain/Bitcoin.svg',
+              logo: 'http://localhost/static.pintu.co.id/assets/images/logo/blockchain/Bitcoin.svg',
             },
           ],
         },
@@ -161,7 +161,7 @@ describe('Tags', () => {
           color: '#9011FE',
           currencySymbol: 'ETH',
           name: 'Ethereum',
-          logo: 'https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+          logo: 'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
           decimal_point: 18,
           listingDate: '2020-09-15T09:43:46Z',
           wallets: [
@@ -174,7 +174,7 @@ describe('Tags', () => {
               explorer: 'https://etherscan.io/tx/',
               listingDate: '2020-09-15T09:43:46Z',
               blockchainName: 'Ethereum',
-              logo: 'https://s3.ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/blockchain/ERC-20.svg',
+              logo: 'http://localhost/static.pintu.co.id/assets/images/logo/blockchain/ERC-20.svg',
             },
           ],
         },
@@ -205,9 +205,7 @@ describe('Tags', () => {
     });
 
     nock('http://localhost')
-      .get(
-        '/api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
-      )
+      .get('/static.pintu.co.id/assets/images/logo/circle_ETH.svg')
       .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
         'Content-Type': 'image/svg+xml',
       });
@@ -262,7 +260,7 @@ describe('Tags', () => {
 
       expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
         'data-src',
-        'api/svg?url=https://s3-ap-southeast-1.amazonaws.com/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+        'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
       expect(screen.getByText('Ethereum')).toBeInTheDocument();
       expect(screen.getByText('ETH')).toBeInTheDocument();

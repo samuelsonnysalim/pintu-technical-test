@@ -41,7 +41,7 @@ describe('MarketTags', () => {
           ext: '.svg',
           mime: 'image/svg+xml',
           size: 3.04,
-          url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Latest_b83e6c1ad1.svg',
+          url: 'http://localhost/content.pintu.co.id/Latest_b83e6c1ad1.svg',
           provider: 'aws-s3',
           provider_metadata: null,
           created_at: '2022-05-31T06:19:18.173Z',
@@ -61,7 +61,7 @@ describe('MarketTags', () => {
           ext: '.png',
           mime: 'image/png',
           size: 11.41,
-          url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Market_Latest_f9dab5a33a.png',
+          url: 'http://localhost/content.pintu.co.id/Market_Latest_f9dab5a33a.png',
           provider: 'aws-s3',
           provider_metadata: null,
           created_at: '2022-05-20T04:17:12.249Z',
@@ -73,7 +73,7 @@ describe('MarketTags', () => {
           formats: {
             small: {
               ext: '.png',
-              url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/small_Market_Latest_f9dab5a33a.png',
+              url: 'http://localhost/content.pintu.co.id/small_Market_Latest_f9dab5a33a.png',
               hash: 'small_Market_Latest_f9dab5a33a',
               mime: 'image/png',
               name: 'small_Market-Latest.png',
@@ -84,7 +84,7 @@ describe('MarketTags', () => {
             },
             thumbnail: {
               ext: '.png',
-              url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/thumbnail_Market_Latest_f9dab5a33a.png',
+              url: 'http://localhost/content.pintu.co.id/thumbnail_Market_Latest_f9dab5a33a.png',
               hash: 'thumbnail_Market_Latest_f9dab5a33a',
               mime: 'image/png',
               name: 'thumbnail_Market-Latest.png',
@@ -146,7 +146,7 @@ describe('MarketTags', () => {
           ext: '.svg',
           mime: 'image/svg+xml',
           size: 1.39,
-          url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/De_Fi_c2cbe56025.svg',
+          url: 'http://localhost/content.pintu.co.id/De_Fi_c2cbe56025.svg',
           provider: 'aws-s3',
           provider_metadata: null,
           created_at: '2022-05-31T06:07:53.447Z',
@@ -166,7 +166,7 @@ describe('MarketTags', () => {
           ext: '.png',
           mime: 'image/png',
           size: 12.98,
-          url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Market_De_Fi_491b73e09f.png',
+          url: 'http://localhost/content.pintu.co.id/Market_De_Fi_491b73e09f.png',
           provider: 'aws-s3',
           provider_metadata: null,
           created_at: '2022-04-13T09:49:47.037Z',
@@ -178,7 +178,7 @@ describe('MarketTags', () => {
           formats: {
             small: {
               ext: '.png',
-              url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/small_Market_De_Fi_491b73e09f.png',
+              url: 'http://localhost/content.pintu.co.id/small_Market_De_Fi_491b73e09f.png',
               hash: 'small_Market_De_Fi_491b73e09f',
               mime: 'image/png',
               name: 'small_Market - DeFi.png',
@@ -189,7 +189,7 @@ describe('MarketTags', () => {
             },
             thumbnail: {
               ext: '.png',
-              url: 'https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/thumbnail_Market_De_Fi_491b73e09f.png',
+              url: 'http://localhost/content.pintu.co.id/thumbnail_Market_De_Fi_491b73e09f.png',
               hash: 'thumbnail_Market_De_Fi_491b73e09f',
               mime: 'image/png',
               name: 'thumbnail_Market - DeFi.png',
@@ -225,17 +225,13 @@ describe('MarketTags', () => {
     ]);
 
     nock('http://localhost')
-      .get(
-        '/api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Latest_b83e6c1ad1.svg',
-      )
+      .get('/content.pintu.co.id/Latest_b83e6c1ad1.svg')
       .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
         'Content-Type': 'image/svg+xml',
       });
 
     nock('http://localhost')
-      .get(
-        '/api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/De_Fi_c2cbe56025.svg',
-      )
+      .get('/content.pintu.co.id/De_Fi_c2cbe56025.svg')
       .reply(200, '<svg xmlns="http://www.w3.org/2000/svg"></svg>', {
         'Content-Type': 'image/svg+xml',
       });
@@ -266,13 +262,13 @@ describe('MarketTags', () => {
     await waitFor(() => {
       expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
         'data-src',
-        'api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/Latest_b83e6c1ad1.svg',
+        'http://localhost/content.pintu.co.id/Latest_b83e6c1ad1.svg',
       );
       expect(screen.getByText('Terbaru')).toHaveAttribute('href', 'tags/new');
 
       expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
         'data-src',
-        'api/svg?url=https://s3.ap-southeast-1.amazonaws.com/content.pintu.co.id/De_Fi_c2cbe56025.svg',
+        'http://localhost/content.pintu.co.id/De_Fi_c2cbe56025.svg',
       );
       expect(screen.getByText('DeFi')).toHaveAttribute('href', 'tags/defi');
     });

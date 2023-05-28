@@ -92,7 +92,7 @@ export default function PriceTable(props: Partial<Props>) {
                             `width: 2rem; height: 2rem; color: ${item.color}`,
                           );
                         }}
-                        src={`api/svg?url=${item.logo}`}
+                        src={item.logo}
                         title={`${item.name} Logo`}
                       />
                       <span className="flex-none grow font-semibold leading-8">

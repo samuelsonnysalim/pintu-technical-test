@@ -97,7 +97,7 @@ export default function SearchCurrency(props: Partial<Props>) {
                               `width: 1rem; height: 22px; color: ${item.color}`,
                             );
                           }}
-                          src={`api/svg?url=${item.logo}`}
+                          src={item.logo}
                           title={`${item.name} Logo`}
                         />
                         <span className="flex-none grow font-medium">
