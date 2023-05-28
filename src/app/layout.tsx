@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://s3.ap-southeast-1.amazonaws.com" />
+        <link rel="icon" href="/icon.png" />
         <link
           href="https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro"
           rel="stylesheet"
