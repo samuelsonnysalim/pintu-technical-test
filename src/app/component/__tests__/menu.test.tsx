@@ -62,14 +62,14 @@ describe('Menu', () => {
     });
   });
 
-  it('should render component in mobile layout', () => {
+  it('should render component on mobile layout', () => {
     resizeScreenSize(400);
     render(<Menu />);
 
     expect(screen.getByTitle('Show Menu')).toBeInTheDocument();
   });
 
-  it('should open menu on clicking menu icon in mobile layout', async () => {
+  it('should open menu on clicking menu icon on mobile layout', async () => {
     const user = userEvent.setup({ delay: null });
     resizeScreenSize(400);
     render(<Menu />);
@@ -88,7 +88,7 @@ describe('Menu', () => {
     });
   });
 
-  it('should close menu on clicking close icon in mobile layout', async () => {
+  it('should close menu on clicking close icon on mobile layout', async () => {
     const user = userEvent.setup({ delay: null });
     resizeScreenSize(400);
     render(<Menu />);
@@ -108,7 +108,7 @@ describe('Menu', () => {
     });
   });
 
-  it('should disable scroll on body while opening menu in mobile layout', async () => {
+  it('should disable scroll on body while opening menu on mobile layout', async () => {
     const user = userEvent.setup({ delay: null });
     resizeScreenSize(400);
     render(<Menu />);
@@ -118,7 +118,7 @@ describe('Menu', () => {
     expect(document.body).toHaveClass('overflow-hidden');
   });
 
-  it('should enable scroll on body while closing menu in mobile layout', async () => {
+  it('should enable scroll on body while closing menu on mobile layout', async () => {
     const user = userEvent.setup();
     resizeScreenSize(400);
     render(<Menu />);
@@ -129,7 +129,7 @@ describe('Menu', () => {
     expect(document.body).not.toHaveClass('overflow-hidden');
   });
 
-  it('should toggle click submenu in mobile layout', async () => {
+  it('should toggle click submenu on mobile layout', async () => {
     const user = userEvent.setup();
     resizeScreenSize(400);
     render(<Menu />);
