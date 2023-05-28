@@ -13,6 +13,7 @@ interface Props {
 }
 
 export default function SearchCurrency(props: Partial<Props>) {
+  const container = useRef<HTMLDivElement>(null);
   const searchInput = useRef<HTMLInputElement>(null);
   const [isShown, setShown] = useState<boolean>(false);
   const [searchCurrency, setSearchCurrency] = useState<string>('');
@@ -29,6 +30,11 @@ export default function SearchCurrency(props: Partial<Props>) {
 
   const open = useCallback(() => setShown(true), []);
   const close = useCallback(() => setShown(false), []);
+  const onClickBody = useCallback((e: MouseEvent) => {
+    if (!container.current?.contains(e.target as Node)) {
+      close();
+    }
+  }, []);
   const change = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => setSearchCurrency(e.target.value),
     [],
@@ -40,8 +46,16 @@ export default function SearchCurrency(props: Partial<Props>) {
     }
   }, [isShown, searchInput]);
 
+  useEffect(() => {
+    document.body.addEventListener('click', onClickBody);
+    return () => document.body.removeEventListener('click', onClickBody);
+  }, []);
+
   return (
-    <div className={classNames('relative z-0', props.className)}>
+    <div
+      ref={container}
+      className={classNames('relative z-0', props.className)}
+    >
       <div
         className="flex bg-gray-100 text-gray-400 text-sm leading-5 py-3 px-4 rounded-lg cursor-pointer"
         onClick={open}

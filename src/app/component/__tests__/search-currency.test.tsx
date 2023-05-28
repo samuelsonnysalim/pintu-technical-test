@@ -128,6 +128,22 @@ describe('SearchCurrency', () => {
     ).not.toBeInTheDocument();
   });
 
+  it('should close search input panel on clicking outside the component', async () => {
+    const user = userEvent.setup({ delay: null });
+    render(
+      <ClientProvider>
+        <div>Outside</div>
+        <SearchCurrency />
+      </ClientProvider>,
+    );
+
+    await user.click(screen.getByText('Cari aset di Pintu...'));
+    await user.click(screen.getByText('Outside'));
+    expect(
+      screen.queryByPlaceholderText('Cari aset di Pintu...'),
+    ).not.toBeInTheDocument();
+  });
+
   it('should call supported currencies api', () => {
     render(
       <ClientProvider>
