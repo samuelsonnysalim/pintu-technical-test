@@ -28,7 +28,7 @@ export default function RootLayout({
         />
       </head>
       <body className={classNames(inter.className, 'bg-white')}>
-        <div className="w-page m-auto">
+        <div className="w-full xl:w-page m-auto overflow-x-hidden xl:overflow-x-visible">
           <header className="py-8 px-6 mb-4">
             <a href="/" className="block w-[75px] h-4 bg-logo float-left" />
             <Menu />

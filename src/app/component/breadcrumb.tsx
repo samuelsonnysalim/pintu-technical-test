@@ -12,7 +12,7 @@ interface Props {
 
 export default function Breadcrumb(props: Partial<Props>) {
   return (
-    <div className="flex text-gray-500 text-sm leading-5">
+    <div className="flex text-gray-500 text-xs xl:text-sm leading-5">
       {props.paths?.map((item, index) => (
         <Fragment key={index}>
           <Link href={item.url}>{item.label}</Link>

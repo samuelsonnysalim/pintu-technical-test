@@ -17,21 +17,23 @@ export default function MarketTags() {
       }),
   });
   return (
-    <div className="flex flex-wrap mb-6 space-x-2">
-      {data?.map((item, index) => (
-        <Link
-          key={index}
-          href={`tags/${item.slug}`}
-          className="flex items-center p-2 bg-blue-100 text-blue-600 text-xs font-semibold rounded-lg"
-        >
-          <ReactSVG
-            className="w-6 h-6 text-blue-600 mr-2"
-            src={item.icon.url}
-            title={`${item.title} Logo`}
-          />
-          {item.title}
-        </Link>
-      ))}
+    <div className="w-full mb-6 overflow-y-auto">
+      <div className="flex space-x-2">
+        {data?.map((item, index) => (
+          <Link
+            key={index}
+            href={`tags/${item.slug}`}
+            className="flex shrink-0 items-center p-2 bg-blue-100 text-blue-600 text-xs font-semibold rounded-lg"
+          >
+            <ReactSVG
+              className="w-6 h-6 text-blue-600 mr-2"
+              src={item.icon.url}
+              title={`${item.title} Logo`}
+            />
+            {item.title}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

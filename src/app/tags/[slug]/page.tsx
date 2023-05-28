@@ -36,15 +36,15 @@ export default async function Tags(props: Props) {
               },
             ]}
           />
-          <h1 className="flex items-center mt-6 mb-4 text-[28px] font-heading font-semibold">
+          <h1 className="flex items-center mt-6 mb-4 text-xl xl:text-[28px] font-heading font-semibold">
             <img
-              className="w-7 h-7 mr-4"
+              className="w-5 h-5 xl:w-7 xl:h-7 mr-4"
               src={data.icon.url}
               alt={`${data.title} Logo`}
             />
             <span className="flex-none grow">{data.title}</span>
           </h1>
-          <div className="mb-6 text-gray-500 leading-[22px]">
+          <div className="mb-6 text-sm xl:text-base text-gray-500 leading-[22px]">
             {data.subtitle}
           </div>
           <PriceTable currencies={data.currencies.map(({ name }) => name)} />
