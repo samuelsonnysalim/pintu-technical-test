@@ -1,6 +1,7 @@
 import PriceTable from '@pintu/technical-test/app/component/price-table';
 import SearchCurrency from '@pintu/technical-test/app/component/search-currency';
 import MarketTags from '@pintu/technical-test/app/component/market-tags';
+import TopMovers from '@pintu/technical-test/app/component/top-movers';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         </h1>
         <SearchCurrency className="w-auto xl:w-[384px]" />
       </div>
+      <TopMovers />
       <MarketTags />
       <PriceTable />
     </>

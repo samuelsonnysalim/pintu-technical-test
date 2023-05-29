@@ -368,6 +368,34 @@ describe('Home', () => {
     expect(screen.getByText('Cari aset di Pintu...')).toBeInTheDocument();
   });
 
+  it('should render TopMovers', async () => {
+    const { container } = render(
+      <ClientProvider>
+        <Home />
+      </ClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('🔥 Top Movers (24 Jam)'));
+
+      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+        'data-src',
+        'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
+      );
+      expect(screen.getAllByText('Ethereum')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('Rp 27.124.120')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('1.55%')[0]).toBeInTheDocument();
+
+      expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
+        'data-src',
+        'http://localhost/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
+      );
+      expect(screen.getAllByText('Bitcoin')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('Rp 395.954.932')[0]).toBeInTheDocument();
+      expect(screen.getAllByText('0.83%')[0]).toBeInTheDocument();
+    });
+  });
+
   it('should render MarketTags', async () => {
     const { container } = render(
       <ClientProvider>
@@ -376,13 +404,13 @@ describe('Home', () => {
     );
 
     await waitFor(() => {
-      expect(container.querySelectorAll('.injected-svg')[0]).toHaveAttribute(
+      expect(container.querySelectorAll('.injected-svg')[2]).toHaveAttribute(
         'data-src',
         'http://localhost/content.pintu.co.id/Latest_b83e6c1ad1.svg',
       );
       expect(screen.getByText('Terbaru')).toBeInTheDocument();
 
-      expect(container.querySelectorAll('.injected-svg')[1]).toHaveAttribute(
+      expect(container.querySelectorAll('.injected-svg')[3]).toHaveAttribute(
         'data-src',
         'http://localhost/content.pintu.co.id/De_Fi_c2cbe56025.svg',
       );
@@ -405,26 +433,26 @@ describe('Home', () => {
       expect(screen.getAllByText('1 BLN')[1]).toBeInTheDocument();
       expect(screen.getAllByText('1 THN')[1]).toBeInTheDocument();
 
-      expect(container.querySelectorAll('.injected-svg')[4]).toHaveAttribute(
+      expect(container.querySelectorAll('.injected-svg')[6]).toHaveAttribute(
         'data-src',
         'http://localhost/static.pintu.co.id/assets/images/logo/circle_BTC.svg',
       );
-      expect(screen.getAllByText('Bitcoin')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('Bitcoin')[2]).toBeInTheDocument();
       expect(screen.getAllByText('BTC')[1]).toBeInTheDocument();
-      expect(screen.getAllByText('Rp 395.954.932')[1]).toBeInTheDocument();
-      expect(screen.getAllByText('0.83%')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('Rp 395.954.932')[2]).toBeInTheDocument();
+      expect(screen.getAllByText('0.83%')[2]).toBeInTheDocument();
       expect(screen.getByText('1.28%')).toBeInTheDocument();
       expect(screen.getByText('4.22%')).toBeInTheDocument();
       expect(screen.getByText('8.67%')).toBeInTheDocument();
 
-      expect(container.querySelectorAll('.injected-svg')[5]).toHaveAttribute(
+      expect(container.querySelectorAll('.injected-svg')[7]).toHaveAttribute(
         'data-src',
         'http://localhost/static.pintu.co.id/assets/images/logo/circle_ETH.svg',
       );
-      expect(screen.getAllByText('Ethereum')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('Ethereum')[2]).toBeInTheDocument();
       expect(screen.getAllByText('ETH')[1]).toBeInTheDocument();
-      expect(screen.getAllByText('Rp 27.124.120')[1]).toBeInTheDocument();
-      expect(screen.getAllByText('1.55%')[1]).toBeInTheDocument();
+      expect(screen.getAllByText('Rp 27.124.120')[2]).toBeInTheDocument();
+      expect(screen.getAllByText('1.55%')[2]).toBeInTheDocument();
       expect(screen.getByText('0.48%')).toBeInTheDocument();
       expect(screen.getByText('1.68%')).toBeInTheDocument();
       expect(screen.getByText('4.85%')).toBeInTheDocument();
