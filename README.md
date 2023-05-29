@@ -7,7 +7,7 @@ This repository is a technical test for Pintu Job Application, created by **[Sam
 I use Next.js 13 **App Router** for this project. Please click [here](https://nextjs.org/docs/app) to know more about **App Router**.
 ## Project Scope
 
-The scope of this project is **[Market](https://pintu.co.id/market)** and **[Tags](https://pintu.co.id/market/tags/new)** page which have been replicated from Pintu website.
+The scope of this project is developing **[Market](https://pintu.co.id/market)** and **[Tags](https://pintu.co.id/market/tags/new)** page which have been replicated from Pintu website.
 
 ## How to start
 
