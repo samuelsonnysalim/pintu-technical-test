@@ -90,7 +90,8 @@
       ]
     },
     "collectCoverageFrom": [
-      "**/*.tsx?"
+      "app/**/*",
+      "!app/api/**/*"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "jest-environment-jsdom",
