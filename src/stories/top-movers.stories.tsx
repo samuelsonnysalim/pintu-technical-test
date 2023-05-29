@@ -211,11 +211,6 @@ const meta: Meta<typeof TopMovers> = {
       },
     ],
   },
-  argTypes: {
-    currencies: {
-      control: 'object',
-    },
-  },
 };
 
 export default meta;
