@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import ClientProvider from '@pintu/technical-test/app/client-provider';
 import SearchCurrency from '@pintu/technical-test/app/component/search-currency';
 import WalletService from '@pintu/technical-test/service/wallet-service';
-import { resizeScreenSize } from '@pintu/technical-test/setup/util';
+import { resizeScreenSize } from '@pintu/technical-test/jest/util';
 
 jest.mock('@pintu/technical-test/service/wallet-service');
 

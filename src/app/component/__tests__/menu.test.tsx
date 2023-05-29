@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Menu from '@pintu/technical-test/app/component/menu';
-import { resizeScreenSize } from '@pintu/technical-test/setup/util';
+import { resizeScreenSize } from '@pintu/technical-test/jest/util';
 
 describe('Menu', () => {
   it('should render component', () => {

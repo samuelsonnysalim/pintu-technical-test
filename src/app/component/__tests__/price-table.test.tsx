@@ -5,7 +5,7 @@ import ClientProvider from '@pintu/technical-test/app/client-provider';
 import PriceTable from '@pintu/technical-test/app/component/price-table';
 import WalletService from '@pintu/technical-test/service/wallet-service';
 import TradeService from '@pintu/technical-test/service/trade-service';
-import { resizeScreenSize } from '@pintu/technical-test/setup/util';
+import { resizeScreenSize } from '@pintu/technical-test/jest/util';
 
 jest.mock('@pintu/technical-test/service/wallet-service');
 jest.mock('@pintu/technical-test/service/trade-service');
