@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <div className="flex mb-8">
-        <h1 className="flex-none grow text-xl xl:text-[28px] xl:leading-[44px] font-heading font-semibold">
+        <h1 className="flex-1 text-xl xl:text-[28px] xl:leading-[44px] font-heading font-semibold">
           Harga Crypto dalam Rupiah Hari Ini
         </h1>
         <SearchCurrency className="w-auto xl:w-[384px]" />
