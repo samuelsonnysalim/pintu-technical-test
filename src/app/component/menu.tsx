@@ -220,7 +220,7 @@ export default function Menu() {
         leaveTo="transform -translate-y-full"
       >
         <div className="flex flex-col">
-          <header className="p-8 border-b border-gray-200">
+          <header className="py-8 px-6 border-b border-gray-200">
             <i className="block w-[75px] h-4 bg-logo float-left" />
             <a
               className="block w-4 h-4 bg-close float-right"
