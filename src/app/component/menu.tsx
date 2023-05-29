@@ -192,7 +192,7 @@ export default function Menu() {
     (index: number) => {
       const arrIndex = openedMobileMenuIndexes.indexOf(index);
       if (arrIndex != -1) {
-        openedMobileMenuIndexes.splice(arrIndex);
+        openedMobileMenuIndexes.splice(arrIndex, 1);
       } else {
         openedMobileMenuIndexes.push(index);
       }
