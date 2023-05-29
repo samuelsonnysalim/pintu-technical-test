@@ -9,6 +9,9 @@ const meta: Meta<typeof Currency> = {
     value: {
       control: 'number',
     },
+    enableValueChangeIndicator: {
+      control: 'boolean',
+    },
   },
 };
 
