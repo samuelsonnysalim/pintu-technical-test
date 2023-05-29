@@ -16,8 +16,20 @@ export default meta;
 
 type Story = StoryObj<typeof Percentage>;
 
-export const Default: Story = {
+export const Positive: Story = {
   args: {
     value: '0.55',
+  },
+};
+
+export const Negative: Story = {
+  args: {
+    value: '-1.23',
+  },
+};
+
+export const Zero: Story = {
+  args: {
+    value: '0',
   },
 };
