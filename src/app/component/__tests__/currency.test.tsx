@@ -29,4 +29,24 @@ describe('Currency', () => {
     expect(screen.getByText('Rp 500.000')).toBeInTheDocument();
     expect(screen.getByText('Rp 500.000')).toHaveClass('text-red-600');
   });
+
+  it('should disable render value with green text color after updated with greater than previous value if the "enableValueChangeIndicator" is false', () => {
+    const { rerender } = render(
+      <Currency value={1000000} enableValueChangeIndicator={false} />,
+    );
+    rerender(<Currency value={2000000} enableValueChangeIndicator={false} />);
+
+    expect(screen.getByText('Rp 2.000.000')).toBeInTheDocument();
+    expect(screen.getByText('Rp 2.000.000')).not.toHaveClass('text-green-600');
+  });
+
+  it('should disable render value with red text color after updated with lower than previous value if the "enableValueChangeIndicator" is false', () => {
+    const { rerender } = render(
+      <Currency value={1000000} enableValueChangeIndicator={false} />,
+    );
+    rerender(<Currency value={500000} enableValueChangeIndicator={false} />);
+
+    expect(screen.getByText('Rp 500.000')).toBeInTheDocument();
+    expect(screen.getByText('Rp 500.000')).not.toHaveClass('text-red-600');
+  });
 });

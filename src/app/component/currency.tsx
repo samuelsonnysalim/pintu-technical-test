@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 interface Props {
   value: number | string;
+  enableValueChangeIndicator: boolean;
 }
 
 export default function Currency(props: Partial<Props>) {
@@ -12,15 +13,21 @@ export default function Currency(props: Partial<Props>) {
   const prevValue = useRef<number>(value);
 
   useEffect(() => {
-    prevValue.current = value;
-  }, [value]);
+    if (props.enableValueChangeIndicator) {
+      prevValue.current = value;
+    }
+  }, [value, props.enableValueChangeIndicator]);
 
   return (
     <div
-      className={classNames({
-        'text-red-600': value < prevValue.current,
-        'text-green-600': value > prevValue.current,
-      })}
+      className={
+        props.enableValueChangeIndicator
+          ? classNames({
+              'text-red-600': value < prevValue.current,
+              'text-green-600': value > prevValue.current,
+            })
+          : undefined
+      }
     >
       {format(value, {
         code: 'IDR',
@@ -33,3 +40,9 @@ export default function Currency(props: Partial<Props>) {
     </div>
   );
 }
+
+const defaultProps: Partial<Props> = {
+  enableValueChangeIndicator: true,
+};
+
+Currency.defaultProps = defaultProps;
